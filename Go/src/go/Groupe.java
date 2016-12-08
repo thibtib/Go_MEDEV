@@ -16,7 +16,7 @@ public class Groupe {
     private ArrayList<Pierre> pierres;
     private boolean couleur; // true si noir, false si blanc
 
-    Groupe(ArrayList<Pierre> ps, boolean c)
+    public Groupe(ArrayList<Pierre> ps, boolean c)
     {
         pierres = ps;
         couleur = c;
@@ -46,7 +46,7 @@ public class Groupe {
      * @return vrai si les groupes sont égaux, faux sinon
      */
     boolean equals(Groupe g){
-        return (this.pierres.equals(g.getPierres()))&&(this.couleur==g.getCouleur());
+        return (this.pierres.containsAll(g.getPierres()))&&(g.getPierres().containsAll(this.pierres))&&(this.couleur==g.getCouleur());
     }
     
 }
