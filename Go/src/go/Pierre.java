@@ -17,7 +17,7 @@ public class Pierre {
      * false = Blanc
      */
     public boolean color;
-    
+
     /**
      * @author Vincent
      * @param x_
@@ -30,7 +30,8 @@ public class Pierre {
         y = y_;
         color = c;
     }
-
+    
+    
     public int getX() {
         return x;
     }

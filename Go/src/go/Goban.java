@@ -29,6 +29,8 @@ public class Goban {
     }
     
     
+    void setPierreAt(int x, int y, bool)
+    
     /**
      * Renvoie la taille du plateau
      * @return 
