@@ -7,6 +7,8 @@
 import go.Goban;
 import go.Groupe;
 import go.Pierre;
+import go.Point2D;
+import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -48,9 +50,34 @@ public class TestGoban {
     @Test
     public void testGetGroupe() 
     {
-        System.out.println("testGetGroupe(Pierre)");
+        System.out.println("test : getGroupe(Pierre)");
         Groupe g = goban.getGroupe(goban.getPierre(0, 0));
         System.out.println(g.getPierres().toString());
         
     }
+    
+    @Test
+    public void testGetGroups() 
+    {
+        System.out.println("test : getGroups()");
+        List<Groupe> groupes = goban.getGroups();
+        for(Groupe g : groupes)
+        {
+            System.out.println(g.getPierres().toString());
+        }
+        
+    }
+    
+    @Test
+    public void testGetLiberte()
+    {
+        System.out.println("test getLiberte()");
+        List<Groupe> groupes = goban.getGroups();
+        for(Groupe g : groupes)
+        {
+            List<Point2D> lib = goban.getLiberte(g);
+            System.out.println(g.getPierres().toString() + " -> " + lib.toString());
+        }
+    }
+    
 }

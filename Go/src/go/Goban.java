@@ -160,7 +160,7 @@ public class Goban {
         }
     }
     
-    private ArrayList<Point2D> getLiberte(Groupe g){
+    public ArrayList<Point2D> getLiberte(Groupe g){
         ArrayList<Pierre> l_pierre = g.getPierres();
         ArrayList<Point2D> libertes = new ArrayList<Point2D>();
         
