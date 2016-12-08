@@ -58,8 +58,6 @@ public class Joueur {
                 }                
             }
         }
-
-        
         return pos;
     }
 }
