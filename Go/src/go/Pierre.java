@@ -10,5 +10,11 @@ package go;
  * @author thibault
  */
 public class Pierre {
-    
+    public int x;
+    public int y;
+    /**
+     * true = Noir
+     * false = Blanc
+     */
+    public boolean color;
 }
