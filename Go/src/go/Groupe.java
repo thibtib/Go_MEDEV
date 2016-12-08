@@ -6,6 +6,7 @@
 package go;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,6 +16,12 @@ public class Groupe {
     private ArrayList<Pierre> pierres;
     private boolean couleur; // true si noir, false si blanc
 
+    Groupe(ArrayList<Pierre> ps, boolean c)
+    {
+        pierres = ps;
+        couleur = c;
+    }
+    
     // getters
     public ArrayList<Pierre> getPierres() {
         return pierres;
