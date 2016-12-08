@@ -5,6 +5,8 @@
  */
 package go;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Vincent
@@ -18,8 +20,7 @@ public class Joueur {
     /**
      * Initialise le nombre de pierres capturees à 0.
      */
-    public Joueur()
-    {
+    public Joueur(){    
         nbrPierreCapturees = 0;
     }
 
@@ -31,5 +32,32 @@ public class Joueur {
         this.nbrPierreCapturees = nbrPierreCapturees;
     }
     
-    
+    public Point2D askForPosition(){
+        Point2D pos = new Point2D();
+        Scanner user_input = new Scanner( System.in );
+        System.out.print("Entrez la position(h pour l'aide): ");
+        boolean flag = true;
+        while(flag){
+            String input = user_input.next();
+            if( input.contains("h")){
+                System.out.println("Entrez la position du point sous la forme: 'X Y' avec X  la position sur "
+                        + "l'axe horizontal et Y sur l'axe vertical   ");
+            }
+            else{
+                try{                    
+                    String[] numbers = input.split(" ");
+                    int x = Integer.parseInt(numbers[0]);
+                    int y = Integer.parseInt(numbers[1]);
+                    
+                    pos.setX(x);
+                    pos.setY(y);
+                    flag = false;
+                }
+                catch(NumberFormatException e){
+                    System.out.println("L'entrée est invalide");
+                }                
+            }
+        }
+        return pos;
+    }
 }
