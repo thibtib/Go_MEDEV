@@ -171,10 +171,10 @@ public class Goban {
             p=it.next();
             x=p.getX();
             y=p.getY();
-            if(goban[x-1][y]==null) libertes.add(new Point2D(x-1,y));
-            if(goban[x+1][y]==null) libertes.add(new Point2D(x+1,y));
-            if(goban[x][y-1]==null) libertes.add(new Point2D(x,y-1));
-            if(goban[x][y+1]==null) libertes.add(new Point2D(x,y+1));
+            if((x-1>0) && goban[x-1][y]==null) libertes.add(new Point2D(x-1,y));
+            if((x+1<this.getTaille()) && goban[x+1][y]==null) libertes.add(new Point2D(x+1,y));
+            if((y-1>0) && goban[x][y-1]==null) libertes.add(new Point2D(x,y-1));
+            if((y+1<this.getTaille()) && goban[x][y+1]==null) libertes.add(new Point2D(x,y+1));
         }
         
         return libertes;
