@@ -17,4 +17,10 @@ public class Pierre {
      * false = Blanc
      */
     public boolean color;
+    
+    public Pierre(int x,int y,boolean color ){
+        this.x = x;
+        this.y = y;
+        this.color = color;
+    }
 }
