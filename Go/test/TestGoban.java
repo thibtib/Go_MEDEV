@@ -45,6 +45,19 @@ public class TestGoban {
     @AfterClass
     public static void tearDownClass() {
     }
+    
+    @Test
+    public void testGetPierre() 
+    {
+        System.out.println("test : getPierre(int,int)");
+        Pierre p = goban.getPierre(0, 0);
+        System.out.println("goban.getPierre(0, 0) -> " + (p == null ? "null" : p.toString()));
+        p = goban.getPierre(1, 1);
+        System.out.println("goban.getPierre(1, 1) -> " + (p == null ? "null" : p.toString()));
+        p = goban.getPierre(2, 2);
+        System.out.println("goban.getPierre(2, 2) -> " + (p == null ? "null" : p.toString()));
+        
+    }
 
 
     @Test
