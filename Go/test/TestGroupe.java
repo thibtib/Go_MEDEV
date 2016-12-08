@@ -51,4 +51,22 @@ public class TestGroupe {
         g = new Groupe(l_p, false);
         assertEquals(l_p,g.getPierres());
     }
+    
+    @Test
+    public void testEquals(){
+        ArrayList<Pierre> l_p = new ArrayList<Pierre>();
+        Groupe g = new Groupe(l_p,true);
+        assertTrue(g.equals(g));
+        assertTrue(g.equals(new Groupe(l_p,true)));
+        
+        l_p.add(new Pierre(0,0,true));
+        ArrayList<Pierre> l_p2 = new ArrayList<Pierre>();
+        l_p2.add(new Pierre(0,0,true));
+        assertTrue(g.equals(new Groupe(l_p2,true)));
+        
+        assertFalse(g.equals(new Groupe(l_p,false)));
+        
+        l_p2.remove(0);
+        assertFalse(g.equals(new Groupe(l_p2,true)));
+    }
 }
