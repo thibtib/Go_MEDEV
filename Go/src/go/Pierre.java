@@ -56,12 +56,18 @@ public class Pierre {
         this.color = color;
     }
     
+    public boolean getColor(){
+        return this.color;
+    }
+    
     @Override
     public String toString()
     {
         return (color ? "Noir" : "Blanc") + "(" + x + "," + y +")";
     }
 
-    
+    public boolean equals(Pierre p){
+        return (this.x==p.getX())&&(this.y==p.getY())&&(this.color==p.getColor());
+    }
 
 }
