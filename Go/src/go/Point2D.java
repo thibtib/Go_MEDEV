@@ -66,4 +66,10 @@ public class Point2D {
     public static double distance(Point2D pt1,Point2D pt2){
         return  Math.sqrt(  Math.pow(pt1.getX()-pt2.getX(),2) +Math.pow(pt1.getY()-pt2.getY(),2) );
     } 
+    
+    @Override
+    public String toString()
+    {
+        return "(" + x + "," + y + ")";
+    }
 }
