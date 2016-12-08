@@ -6,6 +6,7 @@
 package go;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -157,6 +158,26 @@ public class Goban {
             }
             System.out.println("");
         }
+    }
+    
+    private ArrayList<Point2D> getLiberte(Groupe g){
+        ArrayList<Pierre> l_pierre = g.getPierres();
+        ArrayList<Point2D> libertes = new ArrayList<Point2D>();
+        
+        Pierre p;
+        int x,y;
+        Iterator<Pierre> it = l_pierre.iterator();
+        while(it.hasNext()){
+            p=it.next();
+            x=p.getX();
+            y=p.getY();
+            if(goban[x-1][y]==null) libertes.add(new Point2D(x-1,y));
+            if(goban[x+1][y]==null) libertes.add(new Point2D(x+1,y));
+            if(goban[x][y-1]==null) libertes.add(new Point2D(x,y-1));
+            if(goban[x][y+1]==null) libertes.add(new Point2D(x,y+1));
+        }
+        
+        return libertes;
     }
     
 }
