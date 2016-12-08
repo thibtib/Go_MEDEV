@@ -23,13 +23,28 @@ public class Goban {
      * Construit un plateau de jeu de la taille donnée
      * @param taille 
      */
-    Goban(int taille)
+    public Goban(int taille)
     {
         goban = new Pierre[taille][taille];
     }
     
     
-    void setPierreAt(int x, int y, bool)
+    public void setPierre(int x, int y, boolean c)
+    {
+        goban[x][y] = new Pierre(x, y, c);
+    }
+    
+    public Pierre getPierre(int x, int y)
+    {
+        return goban[x][y];
+    }
+    
+    public Pierre takePierre(int x, int y)
+    {
+        Pierre p = goban[x][y];
+        goban[x][y] = null;
+        return p;
+    }
     
     /**
      * Renvoie la taille du plateau
