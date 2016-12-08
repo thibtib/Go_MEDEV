@@ -55,6 +55,12 @@ public class Pierre {
     public void setColor(boolean color) {
         this.color = color;
     }
+    
+    @Override
+    public String toString()
+    {
+        return (color ? "Noir" : "Blanc") + "(" + x + "," + y +")";
+    }
 
     
 
