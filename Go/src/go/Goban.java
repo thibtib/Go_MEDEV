@@ -30,10 +30,14 @@ public class Goban {
     }
     
     
+<<<<<<< HEAD
     //getters
     public Pierre[][] getGoban(){
         return this.goban;
     }
+=======
+    void setPierreAt(int x, int y, bool)
+>>>>>>> b1ff2a481e8fab3d87bad054a5d11c40b6783a67
     
     /**
      * Renvoie la taille du plateau

@@ -17,10 +17,45 @@ public class Pierre {
      * false = Blanc
      */
     public boolean color;
+
+    /**
+     * @author Vincent
+     * @param x_
+     * @param y_
+     * @param c 
+     */
+    public Pierre(int x_, int y_, boolean c)
+    {
+        x = x_;
+        y = y_;
+        color = c;
+    }
     
-    public Pierre(int x,int y,boolean color ){
+    
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
         this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
         this.y = y;
+    }
+
+    public boolean isColor() {
+        return color;
+    }
+
+    public void setColor(boolean color) {
         this.color = color;
     }
+
+    
+
 }
