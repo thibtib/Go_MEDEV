@@ -137,7 +137,7 @@ public class Goban {
         System.out.print(" ");
         for(int x = 0; x < getTaille(); x++)
         {
-            System.out.print("" + (x%10));
+            System.out.print(" " + (x%10));
         }
         System.out.println("");
         
@@ -148,6 +148,7 @@ public class Goban {
             for(int x = 0; x < getTaille(); x++)
             {
                 Pierre p = goban[x][y];
+                System.out.print(" ");
                 if(p == null) {
                     System.out.print(".");
                 } else if(p.color) {

@@ -13,6 +13,11 @@ import java.util.Scanner;
  */
 public class Joueur {
     /*
+    * couleur du joueur : true = Noir , false = blanc
+    */
+    public boolean couleur;
+    
+    /*
     Le nombre de pierre que le joueur a capturé.
     */
     private int nbrPierreCapturees;
@@ -54,12 +59,12 @@ public class Joueur {
         while(flag){
             String input = user_input.next();
             if( input.contains("h")){
-                System.out.println("Entrez la position du point sous la forme: 'X Y' avec X  la position sur "
+                System.out.println("Entrez la position du point sous la forme: 'X:Y' avec X  la position sur "
                         + "l'axe horizontal et Y sur l'axe vertical   ");
             }
             else{
                 try{                    
-                    String[] numbers = input.split(" ");
+                    String[] numbers = input.split(":");
                     int x = Integer.parseInt(numbers[0]);
                     int y = Integer.parseInt(numbers[1]);
                     
