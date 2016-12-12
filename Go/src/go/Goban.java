@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *
+ * classe contenant tous les mécanismes de jeu
  * @author Vincent
  */
 public class Goban {

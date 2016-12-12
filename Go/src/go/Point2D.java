@@ -6,7 +6,7 @@
 package go;
 
 /**
- *
+ * objet représentant la position d'une pierre sur le goban
  * @author thibault
  */
 public class Point2D {
@@ -28,44 +28,85 @@ public class Point2D {
         this.x = _x;
         this.y = _y;
     }
+
+    /**
+     * constructeur de copie
+     * @param P Point2D à copier
+     */
     public Point2D( Point2D P){
         this.x = P.x;
         this.y = P.y;
     }
+
+    /**
+     * constructeur par défaut
+     * place le Point2D en (0,0)
+     */
     public Point2D(){
         this.x = 0;
         this.y = 0;
     }
     
     // getters,setters
+
+    /**
+     * setter abscisse
+     * @param _x abscisse
+     */
     public void setX(int _x){
         this.x = _x;
     }
+
+    /**
+     * getter abscisse
+     * @return abscisse
+     */
     public int getX(){
         return this.x;
     }
+
+    /**
+     * setter ordonnée
+     * @param _y ordonnée
+     */
     public void setY(int _y){
         this.y = _y;
     }
+
+    /**
+     * getter ordonnée
+     * @return ordonnée
+     */
     public int getY(){
         return this.y;
     }
+
+    /**
+     * déplace le Point2D sur une autre position
+     * @param _x abscisse de la nouvelle position
+     * @param _y ordonnée de la nouvelle position
+     */
     public void setPosition(int _x,int _y){
         this.x = _x;
         this.y = _y;
     }
+
+    /**
+     * déplace le Point2D en ajoutant un déplacement
+     * @param _x déplacement en abscisse
+     * @param _y déplacement en ordonnée
+     */
     public void translate(int _x,int _y){
         this.x += _x;
         this.y += _y;
     }
+
+    /**
+     * affiche la position du Point2D
+     */
     public void affiche(){
         System.out.println("["+ this.x +";"+ this.y+"]");
     }
-
-    
-    public static double distance(Point2D pt1,Point2D pt2){
-        return  Math.sqrt(  Math.pow(pt1.getX()-pt2.getX(),2) +Math.pow(pt1.getY()-pt2.getY(),2) );
-    } 
     
     @Override
     public String toString()
