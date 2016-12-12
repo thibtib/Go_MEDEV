@@ -192,11 +192,57 @@ public class Goban {
         return libertes;
     }
     
+    public boolean checkEmptySquare(int x,int y){
+        if( this.goban[x][y]==null  ) return true;
+        else return false;
+    }
+    
+    public boolean checkNotOutofBounds(int x,int y){
+        if( x < 0 || x >= this.getTaille() || y<0 || y>=this.getTaille() ) return false;
+        else return true;
+    }
+    
+    public boolean checkNotSuicide(int x, int y, boolean color){
+        this.setPierre(x,y,color );
+        Groupe g = this.getGroupe( this.getPierre(x, y) );
+        ArrayList<Point2D> lib = this.getLiberte(g);
+        if( lib.isEmpty() ){
+            this.goban[x][y]=null;
+            return false;
+        }
+        else return true;
+    }
+    
+    
     
     public void tourDeJeu(Joueur joueur){
         System.out.println("Début du tour de jeu:");
-        this.afficheGoban();
-        Point2D pos = joueur.askForPosition();
+        if( joueur.couleur) System.out.println("Joueur noir à toi de jouer!");
+        else System.out.println("Joueur blanc à toi de jouer!");
+        
+        Point2D pos = new Point2D();
+        boolean position_ok = false;
+        while(!position_ok){
+            this.afficheGoban();
+            pos = joueur.askForPosition(); 
+            // check if position is not of ouf bounds
+            position_ok = this.checkNotOutofBounds(pos.getX(), pos.getY());
+            if (  !position_ok  ){
+                System.out.println("Entrée invalide --> recommencez!");
+                continue;
+            }
+            // check if square if empty
+            position_ok &= this.checkEmptySquare(pos.getX(), pos.getY());
+            
+            // check if not suicide
+            position_ok &= this.checkNotSuicide(pos.getX(), pos.getY(), joueur.couleur);
+            
+            
+            if(!position_ok){
+                System.out.println("Entrée invalide --> recommencez!");
+            }
+        }
+
         this.setPierre(pos.getX(), pos.getY(),joueur.couleur );
         
     }
