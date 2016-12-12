@@ -45,7 +45,7 @@ public class Groupe {
      * @param g groupe à comparer
      * @return vrai si les groupes sont égaux, faux sinon
      */
-    boolean equals(Groupe g){
+    public boolean equals(Groupe g){
         return (this.pierres.containsAll(g.getPierres()))&&(g.getPierres().containsAll(this.pierres))&&(this.couleur==g.getCouleur());
     }
     
