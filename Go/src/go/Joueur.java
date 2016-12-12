@@ -8,7 +8,7 @@ package go;
 import java.util.Scanner;
 
 /**
- *
+ * objet représentant le joueur
  * @author Vincent
  */
 public class Joueur {
