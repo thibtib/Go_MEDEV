@@ -37,6 +37,10 @@ public class Joueur {
     public int getNbrPierreCapturees() {
         return nbrPierreCapturees;
     }
+    
+    public void incr_nbrPierreCapturees(){
+        this.nbrPierreCapturees++;
+    }
 
     /**
      * setter pour nbrPierreCapturees
@@ -54,13 +58,17 @@ public class Joueur {
     public Point2D askForPosition(){
         Point2D pos = new Point2D();
         Scanner user_input = new Scanner( System.in );
-        System.out.print("Entrez la position(h pour l'aide): ");
+        System.out.print("Entrez la position(p pour passer,h pour l'aide): ");
         boolean flag = true;
         while(flag){
             String input = user_input.next();
             if( input.contains("h")){
                 System.out.println("Entrez la position du point sous la forme: 'X:Y' avec X  la position sur "
                         + "l'axe horizontal et Y sur l'axe vertical   ");
+            }
+            if( input.contains("p")){
+                flag = false;
+                return null;
             }
             else{
                 try{                    
