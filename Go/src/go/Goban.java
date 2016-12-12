@@ -192,6 +192,24 @@ public class Goban {
         return libertes;
     }
     
+    public void captureGroup(){
+        List<Groupe> groups = this.getGroups();
+        for(Groupe g : groups){
+            ArrayList<Point2D> lib = this.getLiberte(g);
+            // if Groupe wihtout liberté --> remove it and add it to pierrecapture of the other player
+            if( lib.isEmpty()){
+                for(Pierre p : g.getPierres() ){
+                    int x = p.x;
+                    int y = p.y;
+                    this.goban[x][y] = null;
+                    if (p.color ) this.joueur_n.incr_nbrPierreCapturees();
+                    else this.joueur_b.incr_nbrPierreCapturees();
+                }
+            }
+        }
+    }
+    
+    
     public boolean checkEmptySquare(int x,int y){
         if( this.goban[x][y]==null  ) return true;
         else return false;
@@ -215,7 +233,7 @@ public class Goban {
     
     
     
-    public void tourDeJeu(Joueur joueur){
+    public boolean tourDeJeu(Joueur joueur){
         System.out.println("Début du tour de jeu:");
         if( joueur.couleur) System.out.println("Joueur noir à toi de jouer!");
         else System.out.println("Joueur blanc à toi de jouer!");
@@ -224,7 +242,11 @@ public class Goban {
         boolean position_ok = false;
         while(!position_ok){
             this.afficheGoban();
-            pos = joueur.askForPosition(); 
+            pos = joueur.askForPosition();
+            if ( pos == null ){
+                System.out.println("Tu passes ton tour");
+                return false;
+            }
             // check if position is not of ouf bounds
             position_ok = this.checkNotOutofBounds(pos.getX(), pos.getY());
             if (  !position_ok  ){
@@ -244,14 +266,23 @@ public class Goban {
         }
 
         this.setPierre(pos.getX(), pos.getY(),joueur.couleur );
+        return true;
         
     }
     
     public void main_loop(){
+        boolean noir = true;
+        boolean blanc = true;
         while(true){
-            this.tourDeJeu(joueur_n);
-            this.tourDeJeu(joueur_b);
+            noir = this.tourDeJeu(joueur_n);
+            this.captureGroup();
+            if ( !noir && !blanc ) break;
+            blanc = this.tourDeJeu(joueur_b);
+            this.captureGroup();
+            if ( !noir && !blanc ) break;
         }
+        System.out.println("Fin du jeu!");
+        
 
     }
     
