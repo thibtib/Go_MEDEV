@@ -437,6 +437,34 @@ public class Goban {
         }
         System.out.println("Fin du jeu!");
         
+        // on récupère les pierres mortes pour les comptabiliser
+        List<Point2D> pierres_mortes = joueur_n.askForDeadStones();
+        for(Point2D pos : pierres_mortes) 
+        {
+            int x = pos.getX();
+            int y = pos.getY();
+            
+            if(x >= getTaille() || y >= getTaille()) {
+                continue;
+            }
+            
+            Pierre lala = goban[x][y];
+            if(lala == null) {
+                continue;
+            }
+            
+            if(lala.color) {
+                joueur_b.incr_nbrPierreCapturees();
+            } else {
+                joueur_n.incr_nbrPierreCapturees();
+            }
+            
+            goban[x][y] = null;
+        }
+        
+        // Affichage du score 
+        System.out.println("Joueur N : " + joueur_n.getNbrPierreCapturees() + " pierre(s) capturée(s)");
+        System.out.println("Joueur B : " + joueur_b.getNbrPierreCapturees() + " pierre(s) capturée(s)");
 
     }
     
