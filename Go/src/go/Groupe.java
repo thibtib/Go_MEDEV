@@ -9,13 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * objet représentant les groupes de pierres liées sur le goban
  * @author fasol
  */
 public class Groupe {
     private ArrayList<Pierre> pierres;
     private boolean couleur; // true si noir, false si blanc
 
+    /**
+     * constructeur avec tous les attributs en paramètre
+     * @param ps liste des pierres du groupe
+     * @param c couleur des pierres du groupe
+     */
     public Groupe(ArrayList<Pierre> ps, boolean c)
     {
         pierres = ps;
@@ -23,19 +28,37 @@ public class Groupe {
     }
     
     // getters
+
+    /**
+     * getter liste des pierres
+     * @return liste des pierres
+     */
     public ArrayList<Pierre> getPierres() {
         return pierres;
     }
 
+    /**
+     * getter couleur des pierres
+     * @return couleur des pierres
+     */
     public boolean getCouleur() {
         return couleur;
     }
 
     // setters
+
+    /**
+     * setter liste des pierres
+     * @param pierres liste des pierres
+     */
     public void setPierres(ArrayList<Pierre> pierres) {
         this.pierres = pierres;
     }
 
+    /**
+     * setter couleur des pierres
+     * @param couleur couleur des pierres
+     */
     public void setCouleur(boolean couleur) {
         this.couleur = couleur;
     }
