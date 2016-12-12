@@ -18,20 +18,34 @@ public class Joueur {
     private int nbrPierreCapturees;
     
     /**
+     * Constructeur par défault
      * Initialise le nombre de pierres capturees à 0.
      */
     public Joueur(){    
         nbrPierreCapturees = 0;
     }
 
+    /**
+     * getter pour nbrPierreCapturees
+     * @return nbrPierreCapturees
+     */
     public int getNbrPierreCapturees() {
         return nbrPierreCapturees;
     }
 
+    /**
+     * setter pour nbrPierreCapturees
+     * @param nbrPierreCapturees
+     */
     public void setNbrPierreCapturees(int nbrPierreCapturees) {
         this.nbrPierreCapturees = nbrPierreCapturees;
     }
     
+    /**
+     * invite le joueur à rentrer une position pour son prochain coup
+     * accès à l'aide via la commande 'h'
+     * @return Point2D représentant la position rentrée
+     */
     public Point2D askForPosition(){
         Point2D pos = new Point2D();
         Scanner user_input = new Scanner( System.in );
