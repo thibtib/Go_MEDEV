@@ -104,5 +104,24 @@ public class Pierre {
     public boolean equals(Pierre p){
         return (this.x==p.getX())&&(this.y==p.getY())&&(this.color==p.getColor());
     }
+    
+    /**
+     * Redéfinition de la méthode equals() pour une Pierre.
+     * <p>
+     * Permet de comparer deux groupes de pierres grâce à la méthode 
+     * containsAll() de la classe List.
+     * </p>
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        Pierre p = (Pierre) obj;
+        if(p == null) {
+            return false;
+        }
+        return this.equals(p);
+    }
 
 }
