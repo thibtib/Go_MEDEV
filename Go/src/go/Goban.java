@@ -16,9 +16,16 @@ import java.util.List;
 public class Goban {
     
     /**
-     * La plateau de jeu
+     * Le plateau de jeu
      */
     private Pierre[][] goban;
+    
+    /**
+     * Les joueurs
+     */
+    public Joueur joueur_b;
+    public Joueur joueur_n;
+    
     
     /**
      * Construit un plateau de jeu de la taille donnée
@@ -26,6 +33,10 @@ public class Goban {
      */
     public Goban(int taille)
     {
+        this.joueur_b = new Joueur();
+        this.joueur_b.couleur = false;
+        this.joueur_n = new Joueur();
+        this.joueur_n.couleur = true;
         goban = new Pierre[taille][taille];
     }
     
@@ -179,6 +190,23 @@ public class Goban {
         }
         
         return libertes;
+    }
+    
+    
+    public void tourDeJeu(Joueur joueur){
+        System.out.println("Début du tour de jeu:");
+        this.afficheGoban();
+        Point2D pos = joueur.askForPosition();
+        this.setPierre(pos.getX(), pos.getY(),joueur.couleur );
+        
+    }
+    
+    public void main_loop(){
+        while(true){
+            this.tourDeJeu(joueur_n);
+            this.tourDeJeu(joueur_b);
+        }
+
     }
     
 }

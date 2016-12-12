@@ -15,7 +15,8 @@ public class Go {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Goban goban = new Goban(9);
+        goban.main_loop();
     }
     
 }
