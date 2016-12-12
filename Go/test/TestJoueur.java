@@ -38,18 +38,18 @@ public class TestJoueur {
     {
         System.out.println("test Joueur.askForPosition()");
         
-        String[] inputs = {"12:13", "lala:0\n1:2", "Bob l'éponge 1:2", "-5:2", "0:1"};
+        String[] inputs = {"12:13", "lala:0\n1:2", "Bob l'éponge 1:2", "-5:2", "0:1", "p"};
         for(String in : inputs)
         {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(in.getBytes());
             System.setIn(inputStream);
            
             Point2D pos = joueur.askForPosition();
-            System.out.println("Joueur.askForPosition() -> " + pos.toString());
+            System.out.println("Joueur.askForPosition() -> " + (pos == null ? "null" : pos.toString()));
             
             System.setIn(System.in);
 
         }
-
+    
     }
 }
