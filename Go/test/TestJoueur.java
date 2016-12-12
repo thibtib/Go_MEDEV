@@ -6,6 +6,7 @@
 
 import go.Joueur;
 import go.Point2D;
+import java.io.ByteArrayInputStream;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,6 +26,7 @@ public class TestJoueur {
     @BeforeClass
     public static void setUpClass() {
         joueur = new Joueur();
+
     }
     
     @AfterClass
@@ -36,7 +38,18 @@ public class TestJoueur {
     {
         System.out.println("test Joueur.askForPosition()");
         
-        Point2D pos = joueur.askForPosition();
-        System.out.println("Joueur.askForPosition() -> " + pos.toString());
+        String[] inputs = {"12:13", "lala:0\n1:2", "Bob l'éponge 1:2", "-5:2", "0:1"};
+        for(String in : inputs)
+        {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(in.getBytes());
+            System.setIn(inputStream);
+           
+            Point2D pos = joueur.askForPosition();
+            System.out.println("Joueur.askForPosition() -> " + pos.toString());
+            
+            System.setIn(System.in);
+
+        }
+
     }
 }
