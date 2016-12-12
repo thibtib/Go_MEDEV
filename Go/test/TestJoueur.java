@@ -7,6 +7,7 @@
 import go.Joueur;
 import go.Point2D;
 import java.io.ByteArrayInputStream;
+import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -46,6 +47,26 @@ public class TestJoueur {
            
             Point2D pos = joueur.askForPosition();
             System.out.println("Joueur.askForPosition() -> " + (pos == null ? "null" : pos.toString()));
+            
+            System.setIn(System.in);
+
+        }
+    }
+    
+    @Test
+    public void testAskForDeadStones() 
+    {
+        System.out.println("test Joueur.askForDeadStones()");
+        
+        String[] inputs = {"12:13\n14:18\n-1:0\nq", "lala:0\n1:2\nq"};
+        for(String in : inputs)
+        {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(in.getBytes());
+            System.setIn(inputStream);
+
+            System.out.println(in);
+            List<Point2D> list_pos = joueur.askForDeadStones();
+            System.out.println("Joueur.askForDeadStones() -> " + list_pos.toString());
             
             System.setIn(System.in);
 

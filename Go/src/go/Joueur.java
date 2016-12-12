@@ -5,6 +5,8 @@
  */
 package go;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -92,5 +94,48 @@ public class Joueur {
             }
         }
         return pos;
+    }
+	
+	/**
+     * Demande au joueur la liste des pierres mortes
+     * <p>
+     * L'utilisateur rentre les positions des pierres sous la forme 'x:y' 
+     * et arrête la saisie en rentrant 'q'.
+     * </p>
+     * @author Vincent
+     * @return 
+     */
+    public List<Point2D> askForDeadStones()
+    {
+        System.out.println("Rentrez la liste des pierres mortes sous la forme x:y, rentrez q pour terminer");
+        
+        List<Point2D> resultat = new ArrayList<Point2D>();
+        
+        Scanner user_input = new Scanner( System.in );
+        for(;;)
+        {
+            String input = user_input.next();
+            if( input.contains("q")){
+                break;
+            }
+            else{
+                try{                    
+                    String[] numbers = input.split(":");
+                    int x = Integer.parseInt(numbers[0]);
+                    int y = Integer.parseInt(numbers[1]);
+                    
+                    if(x < 0 || y < 0) {
+                        throw new RuntimeException();
+                    }
+                    
+                    resultat.add(new Point2D(x, y));
+                }
+                catch(Exception e){
+                    System.out.println("L'entrée est invalide");
+                }                
+            }
+        }
+        
+        return resultat;
     }
 }
