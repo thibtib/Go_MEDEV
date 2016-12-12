@@ -6,7 +6,7 @@
 package go;
 
 /**
- *
+ * objet représentant les pierres sur le goban
  * @author thibault
  */
 public class Pierre {
