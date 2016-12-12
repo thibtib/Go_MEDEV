@@ -23,11 +23,17 @@ public class Joueur {
     private int nbrPierreCapturees;
     
     /**
+     * Dernier coup joué
+     */
+    public Point2D last_move;
+    
+    /**
      * Constructeur par défault
      * Initialise le nombre de pierres capturees à 0.
      */
     public Joueur(){    
         nbrPierreCapturees = 0;
+        last_move = null;
     }
 
     /**

@@ -231,7 +231,58 @@ public class Goban {
         else return true;
     }
     
-    
+    public boolean checkNotKo(int x,int y, Joueur joueur){
+        
+        // c'est pas beau je sais mais bon
+        if( joueur.couleur ){
+            // if other player's last move is pass, the move is ok
+            if( this.joueur_b.last_move == null ) return true;
+            // else we check for ko
+            else{
+                Point2D last = joueur_b.last_move;
+                Pierre p = this.goban[last.getX()][last.getY()];
+                Groupe g = this.getGroupe(p);
+                ArrayList<Point2D> libs = this.getLiberte(g);
+                // if the stone from last move has not one liberty, the move is ok
+                if( libs.size()!= 1 ) return true;
+                // we have to check if this move is gonna capture the stone which did the last move
+                else {
+                    this.setPierre(x, y, joueur.couleur);
+                    g = this.getGroupe(p);
+                    libs = this.getLiberte(g);
+                    if( libs.isEmpty() ){
+                        this.goban[x][y] = null;
+                        return false;
+                    }
+                    else return true;
+                }
+            }
+        }
+        else{
+            // if other player's last move is pass, the move is ok
+            if( this.joueur_n.last_move == null ) return true;
+            // else we check for ko
+            else{
+                Point2D last = joueur_n.last_move;
+                Pierre p = this.goban[last.getX()][last.getY()];
+                Groupe g = this.getGroupe(p);
+                ArrayList<Point2D> libs = this.getLiberte(g);
+                // if the stone from last move has not one liberty, the move is ok
+                if( libs.size()!= 1 ) return true;
+                // we have to check if this move is gonna capture the stone which did the last move
+                else {
+                    this.setPierre(x, y, joueur.couleur);
+                    g = this.getGroupe(p);
+                    libs = this.getLiberte(g);
+                    if( libs.isEmpty() ){
+                        this.goban[x][y] = null;
+                        return false;
+                    }
+                    else return true;
+                }
+            }
+        }
+    }
     
     public boolean tourDeJeu(Joueur joueur){
         System.out.println("Début du tour de jeu:");
@@ -245,27 +296,41 @@ public class Goban {
             pos = joueur.askForPosition();
             if ( pos == null ){
                 System.out.println("Tu passes ton tour");
+                joueur.last_move = null;
                 return false;
             }
             // check if position is not of ouf bounds
             position_ok = this.checkNotOutofBounds(pos.getX(), pos.getY());
             if (  !position_ok  ){
-                System.out.println("Entrée invalide --> recommencez!");
+                System.out.println("Position hors du goban --> recommencez!");
                 continue;
             }
             // check if square if empty
             position_ok &= this.checkEmptySquare(pos.getX(), pos.getY());
+            if (  !position_ok  ){
+                System.out.println("Position déjà occupée --> recommencez!");
+                continue;
+            }
             
+            //check if not ko
+            position_ok &= this.checkNotKo(pos.getX(), pos.getY(), joueur);
+            if (  !position_ok  ){
+                System.out.println("Y'a ko là --> recommencez!");
+                continue;
+            }
             // check if not suicide
             position_ok &= this.checkNotSuicide(pos.getX(), pos.getY(), joueur.couleur);
-            
-            
+            if (  !position_ok  ){
+                System.out.println("Suicide!  --> recommencez!");
+                continue;
+            }
             if(!position_ok){
                 System.out.println("Entrée invalide --> recommencez!");
             }
         }
 
         this.setPierre(pos.getX(), pos.getY(),joueur.couleur );
+        joueur.last_move = pos;
         return true;
         
     }
