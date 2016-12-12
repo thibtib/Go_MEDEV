@@ -102,6 +102,85 @@ public class Goban {
     }
     
     /**
+     * Renvoie la liste des groupes sur le goban.
+     * <p>
+     * Implémentation alternative
+     * </p>
+     * @return 
+     */
+    public List<Groupe> getGroups2()
+    {
+        List<Groupe> resultat = new ArrayList<Groupe>();
+        
+        // tableau indiquant les cases deja visitees
+        boolean[][] visite = new boolean[getTaille()][getTaille()];
+        for(int y = 0; y < getTaille(); y++) {
+            for(int x = 0; x < getTaille(); x++) {
+                visite[x][y] = false;
+            }
+        }
+        
+        for(int y = 0; y < getTaille(); y++)
+        {
+            for(int x = 0; x < getTaille(); x++)
+            {
+                // on vérifie s'il y a une pierre a cet endroit
+                if(goban[x][y] == null) {
+                    continue;
+                }
+                
+                // on regarde si la pierre n'appartient pas deja a un groupe
+                if(visite[x][y]) {
+                    continue;
+                }
+                
+                // on commence un nouveau groupe
+                ArrayList<Pierre> groupe = new ArrayList<Pierre>();
+                Pierre p = goban[x][y];
+                groupe.add(p);
+                
+                // on explore à partir des pierres du groupe les pierres adjacentes 
+                // pour ompléter le groupe
+                List<Pierre> exploration = new ArrayList<Pierre>();
+                exploration.add(p);
+                while(!exploration.isEmpty()) 
+                {
+                    Pierre pe = exploration.get(0);
+                    exploration.remove(0);
+
+                    // on regarde les pierres adjacentes à la pierre courante
+                    List<Pierre> p_adjacentes = new ArrayList<Pierre>();
+                    if(pe.x > 0) { p_adjacentes.add(goban[pe.x-1][pe.y]); }
+                    if(pe.x < getTaille() - 1) { p_adjacentes.add(goban[pe.x+1][pe.y]); }
+                    if(pe.y > 0) { p_adjacentes.add(goban[pe.x][pe.y-1]); }
+                    if(pe.y < getTaille() - 1) { p_adjacentes.add(goban[pe.x][pe.y+1]); }
+
+                    // pour chaque pierre, on regarde si elle est de la bonne 
+                    // couleur et on l'ajoute au groupe si elle n'en fait pas 
+                    // partie ; cette pierre devient ensuite une pierre à explorer.
+                    for(Pierre pa : p_adjacentes)
+                    {
+                        if(pa == null) { continue; }
+                        if(pa.color == p.color) {
+                            if(!groupe.contains(pa)) {
+                                groupe.add(pa);
+                                visite[pa.x][pa.y] = true;
+                                exploration.add(pa);
+                            }
+                        }
+                    }
+                }
+                
+                // on ajoute le groupe à la liste des groupes
+                resultat.add(new Groupe(groupe, p.getColor()));
+                
+            }
+        }
+        
+        return resultat;
+    }
+    
+    /**
      * Renvoie le groupe de la pierre.
      * @param p
      * @return 

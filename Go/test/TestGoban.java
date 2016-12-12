@@ -73,11 +73,29 @@ public class TestGoban {
     public void testGetGroups() 
     {
         System.out.println("test : getGroups()");
+        long debut = System.nanoTime();
         List<Groupe> groupes = goban.getGroups();
+        long fin = System.nanoTime();
         for(Groupe g : groupes)
         {
             System.out.println(g.getPierres().toString());
         }
+        System.out.println("(took " + (fin-debut) + "ns)");
+        
+    }
+    
+    @Test
+    public void testGetGroups2() 
+    {
+        System.out.println("test : getGroups2()");
+        long debut = System.nanoTime();
+        List<Groupe> groupes = goban.getGroups2();
+        long fin = System.nanoTime();
+        for(Groupe g : groupes)
+        {
+            System.out.println(g.getPierres().toString());
+        }
+        System.out.println("(took " + (fin-debut) + "ns)");
         
     }
     
