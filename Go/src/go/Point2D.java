@@ -5,6 +5,9 @@
  */
 package go;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * objet représentant la position d'une pierre sur le goban
  * @author thibault
@@ -112,5 +115,19 @@ public class Point2D {
     public String toString()
     {
         return "(" + x + "," + y + ")";
+    }
+    
+    /**
+     * Renvoie la liste des 4 postions adjancentes au point
+     * @return 
+     */
+    public List<Point2D> getPosAdjacentes()
+    {
+        List<Point2D> ret = new ArrayList<Point2D>();
+        ret.add(new Point2D(x-1, y));
+        ret.add(new Point2D(x+1, y));
+        ret.add(new Point2D(x, y-1));
+        ret.add(new Point2D(x, y+1));
+        return ret;
     }
 }
