@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
  * @author Vincent
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TestGroupe.class, TestGoban.class, TestJoueur.class})
+@Suite.SuiteClasses({TestGroupe.class, TestGoban.class, TestJoueur.class, TestTerritoire.class})
 public class TestSuite {
 
     @BeforeClass

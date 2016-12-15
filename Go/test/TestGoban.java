@@ -39,6 +39,24 @@ public class TestGoban {
         goban.setPierre(4, 5, false);
         goban.setPierre(5, 4, false);
         goban.setPierre(5, 5, false);
+        
+        goban.setPierre(0, 6, false);
+        goban.setPierre(1, 6, false);
+        goban.setPierre(2, 7, false);
+        goban.setPierre(2, 8, false);
+        
+        goban.setPierre(5, 6, true);
+        goban.setPierre(5, 7, true);
+        goban.setPierre(5, 8, true);
+        goban.setPierre(6, 8, true);
+        goban.setPierre(7, 8, true);
+        goban.setPierre(8, 8, true);
+        goban.setPierre(8, 7, true);
+        goban.setPierre(8, 6, true);
+        goban.setPierre(7, 6, true);
+        goban.setPierre(6, 6, true);
+        
+        
         goban.afficheGoban();
     }
     
@@ -110,5 +128,5 @@ public class TestGoban {
             System.out.println(g.getPierres().toString() + " -> " + lib.toString());
         }
     }
-    
+      
 }

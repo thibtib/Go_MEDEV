@@ -5,6 +5,11 @@
  */
 package go;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +43,9 @@ public class Goban {
         this.joueur_n = new Joueur();
         this.joueur_n.couleur = true;
         goban = new Pierre[taille][taille];
+        // écrase le fichier backup s'il existe
+        File file= new File("backup.txt");
+        if(file.exists()) file.delete();
     }
     
     
@@ -375,6 +383,7 @@ public class Goban {
             pos = joueur.askForPosition();
             if ( pos == null ){
                 System.out.println("Tu passes ton tour");
+                this.writeBackup(false,0,0,false);
                 joueur.last_move = null;
                 return false;
             }
@@ -409,6 +418,7 @@ public class Goban {
         }
 
         this.setPierre(pos.getX(), pos.getY(),joueur.couleur );
+        this.writeBackup(true, pos.getX(), pos.getY(), joueur.couleur);
         joueur.last_move = pos;
         return true;
         
@@ -457,5 +467,46 @@ public class Goban {
         System.out.println("Joueur B : " + joueur_b.getNbrPierreCapturees() + " pierre(s) capturée(s)");
 
     }
+    
+
+    
+    public void writeBackup(boolean play, int x, int y, boolean color){
+        BufferedWriter buffWrt = null;
+        try{
+            buffWrt= new BufferedWriter(new FileWriter("backup.txt",true));
+            if(play){
+                String couleur = new String();
+                if(color) couleur="N";
+                else couleur="B";
+                buffWrt.write("play-"+couleur+":"+x+","+y);
+            }
+            else{
+                buffWrt.write("pass-");
+            }
+            buffWrt.newLine();
+        }
+        catch(FileNotFoundException fe){
+            System.out.println("impossible d'ouvrir le fichier de backup");
+        }
+        catch(IOException ioe){
+            System.out.println("impossible d'écrire dans le fichier de backup");
+        }
+        // on ferme le fichier
+        finally {
+            try {
+                if (buffWrt != null) {
+                    // je force l'écriture dans le fichier
+                    buffWrt.flush();
+                    // puis je le ferme
+                    buffWrt.close();
+                }
+            }
+            // on attrape l'exception potentielle 
+            catch (IOException ex) {
+                System.out.println("impossible de flush le BufferedWriter");
+            }
+        }
+    }
+    
     
 }
