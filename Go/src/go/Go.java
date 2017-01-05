@@ -21,7 +21,7 @@ public class Go {
         System.out.println("Charger partie(r) ou commencer une nouvelle partie(n)");
         Scanner scan = new Scanner(System.in);
         boolean flag = true;
-        while(true){
+        while(flag){
             String in = scan.next();
             if( in.contains("r")){
                 flag = false;

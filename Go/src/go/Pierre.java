@@ -96,17 +96,12 @@ public class Pierre {
         return (color ? "Noir" : "Blanc") + "(" + x + "," + y +")";
     }
 
-    /**
-     * permet de déterminer si deux pierres ont la même position et la même couleur
-     * @param p pierre à comparer
-     * @return vrai si même pierre, faux sinon
-     */
-    public boolean equals(Pierre p){
-        return (this.x==p.getX())&&(this.y==p.getY())&&(this.color==p.getColor());
-    }
     
     /**
      * Redéfinition de la méthode equals() pour une Pierre.
+     * <p>
+     * Renvoie true si les deux pierres ont la même position et la même couleur.
+     * </p>
      * <p>
      * Permet de comparer deux groupes de pierres grâce à la méthode 
      * containsAll() de la classe List.
@@ -117,11 +112,17 @@ public class Pierre {
     @Override
     public boolean equals(Object obj)
     {
-        Pierre p = (Pierre) obj;
-        if(p == null) {
+        if(obj == null) {
             return false;
         }
-        return this.equals(p);
+        
+        if(this.getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        Pierre p = (Pierre) obj;
+        
+        return (this.x==p.getX())&&(this.y==p.getY())&&(this.color==p.getColor());
     }
 
 }

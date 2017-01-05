@@ -45,7 +45,9 @@ public class Goban {
         goban = new Pierre[taille][taille];
         // écrase le fichier backup s'il existe
         File file= new File("backup.txt");
-        if(file.exists()) file.delete();
+        if(file.exists()) {
+            file.delete();
+        }
     }
     
     
@@ -109,6 +111,24 @@ public class Goban {
         return ret;
     }
     
+    private List<Pierre> getPierresAdjacentes(Pierre p)
+    {
+        List<Pierre> p_adjacentes = new ArrayList<Pierre>();
+        if(p.x > 0) { 
+            p_adjacentes.add(goban[p.x-1][p.y]); 
+        }
+        if(p.x < getTaille() - 1) { 
+            p_adjacentes.add(goban[p.x+1][p.y]); 
+        }
+        if(p.y > 0) { 
+            p_adjacentes.add(goban[p.x][p.y-1]); 
+        }
+        if(p.y < getTaille() - 1) { 
+            p_adjacentes.add(goban[p.x][p.y+1]); 
+        }
+        return p_adjacentes;
+    }
+    
     /**
      * Renvoie la liste des groupes sur le goban.
      * <p>
@@ -157,11 +177,7 @@ public class Goban {
                     exploration.remove(0);
 
                     // on regarde les pierres adjacentes à la pierre courante
-                    List<Pierre> p_adjacentes = new ArrayList<Pierre>();
-                    if(pe.x > 0) { p_adjacentes.add(goban[pe.x-1][pe.y]); }
-                    if(pe.x < getTaille() - 1) { p_adjacentes.add(goban[pe.x+1][pe.y]); }
-                    if(pe.y > 0) { p_adjacentes.add(goban[pe.x][pe.y-1]); }
-                    if(pe.y < getTaille() - 1) { p_adjacentes.add(goban[pe.x][pe.y+1]); }
+                    List<Pierre> p_adjacentes = getPierresAdjacentes(pe);
 
                     // pour chaque pierre, on regarde si elle est de la bonne 
                     // couleur et on l'ajoute au groupe si elle n'en fait pas 
@@ -205,11 +221,7 @@ public class Goban {
             Pierre pe = list_exploration.get(0);
             list_exploration.remove(0);
             
-            List<Pierre> p_adjacentes = new ArrayList<Pierre>();
-            if(pe.x > 0) { p_adjacentes.add(goban[pe.x-1][pe.y]); }
-            if(pe.x < getTaille() - 1) { p_adjacentes.add(goban[pe.x+1][pe.y]); }
-            if(pe.y > 0) { p_adjacentes.add(goban[pe.x][pe.y-1]); }
-            if(pe.y < getTaille() - 1) { p_adjacentes.add(goban[pe.x][pe.y+1]); }
+            List<Pierre> p_adjacentes = getPierresAdjacentes(pe);
             
             for(Pierre pa : p_adjacentes)
             {
@@ -259,9 +271,9 @@ public class Goban {
         }
     }
     
-    public ArrayList<Point2D> getLiberte(Groupe g){
-        ArrayList<Pierre> l_pierre = g.getPierres();
-        ArrayList<Point2D> libertes = new ArrayList<Point2D>();
+    public List<Point2D> getLiberte(Groupe g){
+        List<Pierre> l_pierre = g.getPierres();
+        List<Point2D> libertes = new ArrayList<Point2D>();
         
         Pierre p;
         int x,y;
@@ -282,7 +294,7 @@ public class Goban {
     public void captureGroup(){
         List<Groupe> groups = this.getGroups();
         for(Groupe g : groups){
-            ArrayList<Point2D> lib = this.getLiberte(g);
+            List<Point2D> lib = this.getLiberte(g);
             // if Groupe wihtout liberté --> remove it and add it to pierrecapture of the other player
             if( lib.isEmpty()){
                 for(Pierre p : g.getPierres() ){
@@ -298,24 +310,28 @@ public class Goban {
     
     
     public boolean checkEmptySquare(int x,int y){
-        if( this.goban[x][y]==null  ) return true;
-        else return false;
+        if( this.goban[x][y]==null  ) {
+            return true;
+        }
+        return false;
     }
     
     public boolean checkNotOutofBounds(int x,int y){
-        if( x < 0 || x >= this.getTaille() || y<0 || y>=this.getTaille() ) return false;
-        else return true;
+        if( x < 0 || x >= this.getTaille() || y<0 || y>=this.getTaille() ) {
+            return false;
+        }
+        return true;
     }
     
     public boolean checkNotSuicide(int x, int y, boolean color){
         this.setPierre(x,y,color );
         Groupe g = this.getGroupe( this.getPierre(x, y) );
-        ArrayList<Point2D> lib = this.getLiberte(g);
+        List<Point2D> lib = this.getLiberte(g);
         if( lib.isEmpty() ){
             this.goban[x][y]=null;
             return false;
         }
-        else return true;
+        return true;
     }
     
     public boolean checkNotKo(int x,int y, Joueur joueur){
@@ -329,7 +345,7 @@ public class Goban {
                 Point2D last = joueur_b.last_move;
                 Pierre p = this.goban[last.getX()][last.getY()];
                 Groupe g = this.getGroupe(p);
-                ArrayList<Point2D> libs = this.getLiberte(g);
+                List<Point2D> libs = this.getLiberte(g);
                 // if the stone from last move has not one liberty, the move is ok
                 if( libs.size()!= 1 ) return true;
                 // we have to check if this move is gonna capture the stone which did the last move
@@ -347,13 +363,15 @@ public class Goban {
         }
         else{
             // if other player's last move is pass, the move is ok
-            if( this.joueur_n.last_move == null ) return true;
+            if( this.joueur_n.last_move == null ) {
+                return true;
+            }
             // else we check for ko
             else{
                 Point2D last = joueur_n.last_move;
                 Pierre p = this.goban[last.getX()][last.getY()];
                 Groupe g = this.getGroupe(p);
-                ArrayList<Point2D> libs = this.getLiberte(g);
+                List<Point2D> libs = this.getLiberte(g);
                 // if the stone from last move has not one liberty, the move is ok
                 if( libs.size()!= 1 ) return true;
                 // we have to check if this move is gonna capture the stone which did the last move
@@ -373,8 +391,11 @@ public class Goban {
     
     public boolean tourDeJeu(Joueur joueur){
         System.out.println("Début du tour de jeu:");
-        if( joueur.couleur) System.out.println("Joueur noir à toi de jouer!");
-        else System.out.println("Joueur blanc à toi de jouer!");
+        if( joueur.couleur) {
+            System.out.println("Joueur noir à toi de jouer!");
+        } else {
+            System.out.println("Joueur blanc à toi de jouer!");
+        }
         
         Point2D pos = new Point2D();
         boolean position_ok = false;
@@ -425,7 +446,7 @@ public class Goban {
     }
     
     public void main_loop(){
-        boolean noir = true;
+        boolean noir;
         boolean blanc = true;
         while(true){
             noir = this.tourDeJeu(joueur_n);

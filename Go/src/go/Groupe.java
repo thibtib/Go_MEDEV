@@ -5,7 +5,6 @@
  */
 package go;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
  * @author fasol
  */
 public class Groupe {
-    private ArrayList<Pierre> pierres;
+    private List<Pierre> pierres;
     private boolean couleur; // true si noir, false si blanc
 
     /**
@@ -21,7 +20,7 @@ public class Groupe {
      * @param ps liste des pierres du groupe
      * @param c couleur des pierres du groupe
      */
-    public Groupe(ArrayList<Pierre> ps, boolean c)
+    public Groupe(List<Pierre> ps, boolean c)
     {
         pierres = ps;
         couleur = c;
@@ -33,7 +32,7 @@ public class Groupe {
      * getter liste des pierres
      * @return liste des pierres
      */
-    public ArrayList<Pierre> getPierres() {
+    public List<Pierre> getPierres() {
         return pierres;
     }
 
@@ -51,7 +50,7 @@ public class Groupe {
      * setter liste des pierres
      * @param pierres liste des pierres
      */
-    public void setPierres(ArrayList<Pierre> pierres) {
+    public void setPierres(List<Pierre> pierres) {
         this.pierres = pierres;
     }
 
@@ -68,7 +67,18 @@ public class Groupe {
      * @param g groupe à comparer
      * @return vrai si les groupes sont égaux, faux sinon
      */
-    public boolean equals(Groupe g){
+    @Override
+    public boolean equals(Object obj){
+        if(obj == null) {
+            return false;
+        }
+        
+        if(this.getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        Groupe g = (Groupe) obj;
+        
         return (this.pierres.containsAll(g.getPierres()))&&(g.getPierres().containsAll(this.pierres))&&(this.couleur==g.getCouleur());
     }
     

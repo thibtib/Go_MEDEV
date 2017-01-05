@@ -75,7 +75,7 @@ public class Joueur {
                         + "l'axe horizontal et Y sur l'axe vertical   ");
             }
             if( input.contains("p")){
-                flag = false;
+                //flag = false;
                 return null;
             }
             else{
