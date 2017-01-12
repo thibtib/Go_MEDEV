@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JeuDeGo" default="all" basedir=".">
+<project name="JeuDeGo" default="all" basedir="." xmlns:sonar="antlib:org.sonar.ant">
 	<description>This is a simple test project.</description>
 	<target name="checkDependencies"
 			description="Check if dependencies are satisfied">
@@ -80,10 +80,38 @@
 		<javadoc sourcepath="../src" destdir="release/javadoc" encoding="utf8" docencoding="utf8" charset="utf8" />
 	</target>
 	
+	
+	<!--
+	Support de SonarQube
+	-->
+	<property name="sonar.host.url" value="http://localhost:9000" />
+	
+	<property name="sonar.projectKey" value="org.sonarqube:jeu-de-go" />
+	<property name="sonar.projectName" value="Example of SonarQube Scanner for Ant Usage" />
+	<property name="sonar.projectVersion" value="1.0" />
+	<property name="sonar.projectBaseDir" value=".." />
+	<property name="sonar.sources" value="src" />
+	<property name="sonar.java.binaries" value="build/release/.class" />
+	<property name="sonar.java.libraries" value="lib/*.jar" />
+
+	<available file="${ant.home}/lib/sonarqube-ant-task-2.5.jar" property="sonar.installed"/>
+	<target name="installSonar" description="Installs SonarScaner Ant plugin" unless="sonar.installed">
+		<get dest="${ant.home}/lib/sonarqube-ant-task-2.5.jar" src="https://sonarsource.bintray.com/Distribution/sonarqube-ant-task/sonarqube-ant-task-2.5.jar" />
+	</target>
+	
+	<target name="runSonar" depends="installSonar">
+		<taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+			<classpath path="${ant.home}/lib/sonarqube-ant-task-*.jar" />
+		</taskdef>
+	 	<sonar:sonar /> <!-- Execute l'analyse --> 
+	</target>
+	
+	
 	<target name="all">
 		<antcall target="build"/>
 		<antcall target="buildJavadoc"/>
 		<antcall target="runUnitTests"/>
+		<antcall target="runSonar"/>
 	</target>
 
 </project>
