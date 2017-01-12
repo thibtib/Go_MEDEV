@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JeuDeGo" default="build" basedir=".">
+<project name="JeuDeGo" default="all" basedir=".">
 	<description>This is a simple test project.</description>
 	<target name="checkDependencies"
 			description="Check if dependencies are satisfied">
@@ -28,4 +28,53 @@
 		</jar>
 		<echo message="Done!"/>
 	</target>
+	
+	<!-- 
+	Téléchargement de JUnit si pas installé 
+	Le fichier junit.jar est placé dans le dossier ${ant.home}/lib
+	-->
+	<available classname="org.junit.runner.Runner" property="junit.installed"/>
+	<target name="install-junit" description="Install junit" unless="junit.installed">
+		<get dest="${ant.home}/lib/junit.jar" src="http://central.maven.org/maven2/junit/junit/4.4/junit-4.4.jar"/>
+	</target>
+	
+	<!--
+	Compilation des tests
+	-->
+	<target name="compileUnitTests" depends="build">
+		<property name="test.src.location" location="../test"/>
+		<mkdir dir="release/.test"/>
+		<javac srcdir="${test.src.location}" destdir="release/.test">
+			<classpath>
+				<pathelement path="release/.class"/>
+			</classpath>
+		</javac>
+	</target>
+	
+
+	
+	<!--
+	Execution des tests
+	-->
+	<target name="runUnitTests" description="Effectue les tests"
+		    depends="install-junit, compileUnitTests">
+		<mkdir dir="release/.test/report"/>
+		<junit printsummary="yes" haltonfailure="yes">
+			<formatter type="plain"/>
+			<classpath>
+				<pathelement path="release/.class"/>
+				<pathelement path="release/.test"/>
+				<pathelement location="${ant.home}/lib/hamcrest-core-1.3.jar"/>
+			</classpath>
+			<batchtest fork="yes" todir="release/.test/report">
+				<fileset dir="release/.test"/>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<target name="all">
+		<antcall target="build"/>
+		<antcall target="runUnitTests"/>
+	</target>
+
 </project>
